@@ -4,7 +4,7 @@ let schemas = ./schemas.dhall
 
 let render = ./render.dhall
 
-let dhall-dot = types // schemas // { render }
+let dhall-dot = types ⫽ schemas ⫽ { render }
 
 let minimalExample =
         assert
@@ -28,7 +28,8 @@ let maximalExample =
               [ dhall-dot.statement.node
                   { nodeID =
                     { id = "Node #0"
-                    , port = Some (dhall-dot.Port.CompassPoint dhall-dot.CompassPoint.n)
+                    , port = Some
+                        (dhall-dot.Port.CompassPoint dhall-dot.CompassPoint.n)
                     }
                   , attributes = toMap { color = "red" }
                   }
@@ -41,7 +42,9 @@ let maximalExample =
                     [ dhall-dot.vertex.nodeID
                         { id = "Node #0"
                         , port = Some
-                            (dhall-dot.Port.CompassPoint dhall-dot.CompassPoint.n)
+                            ( dhall-dot.Port.CompassPoint
+                                dhall-dot.CompassPoint.n
+                            )
                         }
                     , dhall-dot.vertex.nodeID
                         { id = "Node #1", port = None dhall-dot.Port }
