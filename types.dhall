@@ -1,4 +1,5 @@
-let List/map = https://prelude.dhall-lang.org/v17.1.0/List/map
+let List/map =
+      https://prelude.dhall-lang.org/v17.1.0/List/map.dhall sha256:dd845ffb4568d40327f2a817eb42d1c6138b929ca758d50bc33112ef3c885680
 
 let ID = Text
 
@@ -20,7 +21,7 @@ let Statement =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → types.Statement
+              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -47,7 +48,7 @@ let Vertex =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → types.Statement
+              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -74,7 +75,7 @@ let SubGraph =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → types.Statement
+              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -98,7 +99,7 @@ let SubGraph =
         types.SubGraph
 
 let statement
-    : { node : { id : ID, port : Optional Port } → Statement
+    : { node : { nodeID : NodeID, attributes : List Attribute } → Statement
       , edges :
           { vertices : List Vertex, attributes : List Attribute } → Statement
       , attributes :
@@ -107,11 +108,11 @@ let statement
       , subgraph : SubGraph → Statement
       }
     = { node =
-          λ(x : { id : ID, port : Optional Port }) →
+          λ(x : { nodeID : NodeID, attributes : List Attribute }) →
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -138,7 +139,7 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -171,7 +172,7 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -198,7 +199,7 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -225,7 +226,7 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -256,7 +257,7 @@ let vertex
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -283,7 +284,7 @@ let vertex
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → types.Statement
+                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -313,7 +314,7 @@ let subgraph
       λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       λ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → types.Statement
+              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
