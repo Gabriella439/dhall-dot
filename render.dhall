@@ -1,11 +1,14 @@
-let Text/concatSep = https://prelude.dhall-lang.org/v17.1.0/Text/concatSep.dhall
+let Text/concatSep =
+      https://prelude.dhall-lang.org/v17.1.0/Text/concatSep.dhall sha256:e4401d69918c61b92a4c0288f7d60a6560ca99726138ed8ebc58dca2cd205e58
 
 let Text/concatMapSep =
-      https://prelude.dhall-lang.org/v17.1.0/Text/concatMapSep.dhall
+      https://prelude.dhall-lang.org/v17.1.0/Text/concatMapSep.dhall sha256:c272aca80a607bc5963d1fcb38819e7e0d3e72ac4d02b1183b1afb6a91340840
 
-let List/map = https://prelude.dhall-lang.org/v17.1.0/List/map.dhall
+let List/map =
+      https://prelude.dhall-lang.org/v17.1.0/List/map.dhall sha256:dd845ffb4568d40327f2a817eb42d1c6138b929ca758d50bc33112ef3c885680
 
-let List/null = https://prelude.dhall-lang.org/v17.1.0/List/null.dhall
+let List/null =
+      https://prelude.dhall-lang.org/v17.1.0/List/null.dhall sha256:2338e39637e9a50d66ae1482c0ed559bbcc11e9442bfca8f8c176bbcd9c4fc80
 
 let types = ./types.dhall
 
@@ -145,101 +148,15 @@ let graph
                 (λ(s : types.Statement) → "${statement g.directionality s};")
                 g.statements
 
-        in  Text/concatSep
-              " "
-              (   renderedStrict
-                # [ directionality g.directionality ]
-                # renderedID
-                # [ "{" ]
-                # renderedStatements
-                # [ "}" ]
-              )
-
-let minimalExample =
-        assert
-      :   graph
-            { strict = False
-            , directionality = types.Directionality.graph
-            , id = None types.ID
-            , statements = [] : List types.Statement
-            }
-        ≡ "graph { }"
-
-let maximalExample =
-        assert
-      :   graph
-            { strict = True
-            , directionality = types.Directionality.digraph
-            , id = Some "A"
-            , statements =
-              [ types.statement.node
-                  { nodeID =
-                    { id = "Node #0"
-                    , port = Some (types.Port.CompassPoint types.CompassPoint.n)
-                    }
-                  , attributes = toMap { color = "red" }
-                  }
-              , types.statement.node
-                  { nodeID = { id = "Node #1", port = None types.Port }
-                  , attributes = [] : List types.Attribute
-                  }
-              , types.statement.edges
-                  { vertices =
-                    [ types.vertex.nodeID
-                        { id = "Node #0"
-                        , port = Some
-                            (types.Port.CompassPoint types.CompassPoint.n)
-                        }
-                    , types.vertex.nodeID
-                        { id = "Node #1", port = None types.Port }
-                    , types.vertex.subgraph
-                        ( types.subgraph
-                            { id = Some "Subgraph #0"
-                            , statements =
-                              [ types.statement.node
-                                  { nodeID =
-                                    { id = "Subgraph #0 - Node #0"
-                                    , port = None types.Port
-                                    }
-                                  , attributes = [] : List types.Attribute
-                                  }
-                              , types.statement.node
-                                  { nodeID =
-                                    { id = "Subgraph #0 - Node #1"
-                                    , port = None types.Port
-                                    }
-                                  , attributes = [] : List types.Attribute
-                                  }
-                              ]
-                            }
-                        )
-                    ]
-                  , attributes = toMap { label = "Label #0" }
-                  }
-              , types.statement.subgraph
-                  ( types.subgraph
-                      { id = Some "Subgraph #1"
-                      , statements =
-                        [ types.statement.node
-                            { nodeID =
-                              { id = "Subgraph #1 - Node #0"
-                              , port = None types.Port
-                              }
-                            , attributes = [] : List types.Attribute
-                            }
-                        , types.statement.node
-                            { nodeID =
-                              { id = "Subgraph #1 - Node #1"
-                              , port = None types.Port
-                              }
-                            , attributes = [] : List types.Attribute
-                            }
-                        ]
-                      }
+        in      Text/concatSep
+                  " "
+                  (   renderedStrict
+                    # [ directionality g.directionality ]
+                    # renderedID
+                    # [ "{" ]
+                    # renderedStatements
+                    # [ "}" ]
                   )
-              ]
-            }
-        ≡ ''
-          strict digraph "A" { "Node #0":n [ "color" = "red" ]; "Node #1"; "Node #0":n -> "Node #1" -> subgraph "Subgraph #0" { "Subgraph #0 - Node #0"; "Subgraph #0 - Node #1"; } [ "label" = "Label #0" ]; subgraph "Subgraph #1" { "Subgraph #1 - Node #0"; "Subgraph #1 - Node #1"; }; }''
+            ++  "\n"
 
-in  { graph }
+in  graph

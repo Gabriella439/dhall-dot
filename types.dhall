@@ -21,7 +21,9 @@ let Statement =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+              { node :
+                  { nodeID : NodeID, attributes : List Attribute } →
+                    types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -48,7 +50,9 @@ let Vertex =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+              { node :
+                  { nodeID : NodeID, attributes : List Attribute } →
+                    types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -75,7 +79,9 @@ let SubGraph =
       ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+              { node :
+                  { nodeID : NodeID, attributes : List Attribute } →
+                    types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
@@ -112,7 +118,9 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -139,7 +147,9 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -172,7 +182,9 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -199,7 +211,9 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -226,7 +240,9 @@ let statement
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -257,7 +273,9 @@ let vertex
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -284,7 +302,9 @@ let vertex
           λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+                  { node :
+                      { nodeID : NodeID, attributes : List Attribute } →
+                        types.Statement
                   , edges :
                       { vertices : List types.Vertex
                       , attributes : List Attribute
@@ -314,7 +334,9 @@ let subgraph
       λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       λ ( constructors
         : { statement :
-              { node : { nodeID : NodeID, attributes : List Attribute } → types.Statement
+              { node :
+                  { nodeID : NodeID, attributes : List Attribute } →
+                    types.Statement
               , edges :
                   { vertices : List types.Vertex
                   , attributes : List Attribute
