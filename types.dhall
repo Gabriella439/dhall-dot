@@ -17,73 +17,85 @@ let AttributeType = < edge | graph | node >
 let NodeID = { id : ID, port : Optional Port }
 
 let Statement =
-      ∀(Statement : Type) →
-      ∀(Vertex : Type) →
-      ∀(SubGraph : Type) →
+      ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → Statement
+              { node : { id : ID, port : Optional Port } → types.Statement
               , edges :
-                  { vertices : List Vertex, attributes : List Attribute } →
-                    Statement
+                  { vertices : List types.Vertex
+                  , attributes : List Attribute
+                  } →
+                    types.Statement
               , attributes :
                   { type : AttributeType, attributes : List Attribute } →
-                    Statement
-              , attribute : Attribute → Statement
-              , subgraph : SubGraph → Statement
+                    types.Statement
+              , attribute : Attribute → types.Statement
+              , subgraph : types.SubGraph → types.Statement
               }
-          , vertex : { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+          , vertex :
+              { nodeID : NodeID → types.Vertex
+              , subgraph : types.SubGraph → types.Vertex
+              }
           , subgraph :
-              { id : Optional Text, statements : List Statement } → SubGraph
+              { id : Optional Text, statements : List types.Statement } →
+                types.SubGraph
           }
         ) →
-        Statement
+        types.Statement
 
 let Vertex =
-      ∀(Statement : Type) →
-      ∀(Vertex : Type) →
-      ∀(SubGraph : Type) →
+      ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → Statement
+              { node : { id : ID, port : Optional Port } → types.Statement
               , edges :
-                  { vertices : List Vertex, attributes : List Attribute } →
-                    Statement
+                  { vertices : List types.Vertex
+                  , attributes : List Attribute
+                  } →
+                    types.Statement
               , attributes :
                   { type : AttributeType, attributes : List Attribute } →
-                    Statement
-              , attribute : Attribute → Statement
-              , subgraph : SubGraph → Statement
+                    types.Statement
+              , attribute : Attribute → types.Statement
+              , subgraph : types.SubGraph → types.Statement
               }
-          , vertex : { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+          , vertex :
+              { nodeID : NodeID → types.Vertex
+              , subgraph : types.SubGraph → types.Vertex
+              }
           , subgraph :
-              { id : Optional Text, statements : List Statement } → SubGraph
+              { id : Optional Text, statements : List types.Statement } →
+                types.SubGraph
           }
         ) →
-        Vertex
+        types.Vertex
 
 let SubGraph =
-      ∀(Statement : Type) →
-      ∀(Vertex : Type) →
-      ∀(SubGraph : Type) →
+      ∀(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       ∀ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → Statement
+              { node : { id : ID, port : Optional Port } → types.Statement
               , edges :
-                  { vertices : List Vertex, attributes : List Attribute } →
-                    Statement
+                  { vertices : List types.Vertex
+                  , attributes : List Attribute
+                  } →
+                    types.Statement
               , attributes :
                   { type : AttributeType, attributes : List Attribute } →
-                    Statement
-              , attribute : Attribute → Statement
-              , subgraph : SubGraph → Statement
+                    types.Statement
+              , attribute : Attribute → types.Statement
+              , subgraph : types.SubGraph → types.Statement
               }
-          , vertex : { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+          , vertex :
+              { nodeID : NodeID → types.Vertex
+              , subgraph : types.SubGraph → types.Vertex
+              }
           , subgraph :
-              { id : Optional Text, statements : List Statement } → SubGraph
+              { id : Optional Text, statements : List types.Statement } →
+                types.SubGraph
           }
         ) →
-        SubGraph
+        types.SubGraph
 
 let statement
     : { node : { id : ID, port : Optional Port } → Statement
@@ -96,219 +108,238 @@ let statement
       }
     = { node =
           λ(x : { id : ID, port : Optional Port }) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
             constructors.statement.node x
       , edges =
           λ(x : { vertices : List Vertex, attributes : List Attribute }) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
             constructors.statement.edges
               { vertices =
-                  let adapt =
-                        λ(v : Vertex@1) →
-                          v Statement Vertex SubGraph constructors
+                  let adapt = λ(v : Vertex) → v types constructors
 
-                  in  List/map Vertex@1 Vertex adapt x.vertices
+                  in  List/map Vertex types.Vertex adapt x.vertices
               , attributes = x.attributes
               }
       , attributes =
           λ(x : { type : AttributeType, attributes : List Attribute }) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
             constructors.statement.attributes x
       , attribute =
           λ(x : Attribute) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
             constructors.statement.attribute x
       , subgraph =
           λ(x : SubGraph) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
-            constructors.statement.subgraph
-              (x Statement Vertex SubGraph constructors)
+            constructors.statement.subgraph (x types constructors)
       }
 
 let vertex
     : { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
     = { nodeID =
           λ(x : { id : ID, port : Optional Port }) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
             constructors.vertex.nodeID x
       , subgraph =
           λ(x : SubGraph) →
-          λ(Statement : Type) →
-          λ(Vertex : Type) →
-          λ(SubGraph : Type) →
+          λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
           λ ( constructors
             : { statement :
-                  { node : { id : ID, port : Optional Port } → Statement
+                  { node : { id : ID, port : Optional Port } → types.Statement
                   , edges :
-                      { vertices : List Vertex, attributes : List Attribute } →
-                        Statement
+                      { vertices : List types.Vertex
+                      , attributes : List Attribute
+                      } →
+                        types.Statement
                   , attributes :
                       { type : AttributeType, attributes : List Attribute } →
-                        Statement
-                  , attribute : Attribute → Statement
-                  , subgraph : SubGraph → Statement
+                        types.Statement
+                  , attribute : Attribute → types.Statement
+                  , subgraph : types.SubGraph → types.Statement
                   }
               , vertex :
-                  { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+                  { nodeID : NodeID → types.Vertex
+                  , subgraph : types.SubGraph → types.Vertex
+                  }
               , subgraph :
-                  { id : Optional Text, statements : List Statement } → SubGraph
+                  { id : Optional Text, statements : List types.Statement } →
+                    types.SubGraph
               }
             ) →
-            constructors.vertex.subgraph
-              (x Statement Vertex SubGraph constructors)
+            constructors.vertex.subgraph (x types constructors)
       }
 
 let subgraph
     : { id : Optional ID, statements : List Statement } → SubGraph
     = λ(x : { id : Optional ID, statements : List Statement }) →
-      λ(Statement : Type) →
-      λ(Vertex : Type) →
-      λ(SubGraph : Type) →
+      λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       λ ( constructors
         : { statement :
-              { node : { id : ID, port : Optional Port } → Statement
+              { node : { id : ID, port : Optional Port } → types.Statement
               , edges :
-                  { vertices : List Vertex, attributes : List Attribute } →
-                    Statement
+                  { vertices : List types.Vertex
+                  , attributes : List Attribute
+                  } →
+                    types.Statement
               , attributes :
                   { type : AttributeType, attributes : List Attribute } →
-                    Statement
-              , attribute : Attribute → Statement
-              , subgraph : SubGraph → Statement
+                    types.Statement
+              , attribute : Attribute → types.Statement
+              , subgraph : types.SubGraph → types.Statement
               }
-          , vertex : { nodeID : NodeID → Vertex, subgraph : SubGraph → Vertex }
+          , vertex :
+              { nodeID : NodeID → types.Vertex
+              , subgraph : types.SubGraph → types.Vertex
+              }
           , subgraph :
-              { id : Optional Text, statements : List Statement } → SubGraph
+              { id : Optional Text, statements : List types.Statement } →
+                types.SubGraph
           }
         ) →
         constructors.subgraph
           { id = x.id
           , statements =
-              let adapt =
-                    λ(s : Statement@1) →
-                      s Statement Vertex SubGraph constructors
+              let adapt = λ(s : Statement) → s types constructors
 
-              in  List/map Statement@1 Statement adapt x.statements
+              in  List/map Statement types.Statement adapt x.statements
           }
 
 let Directionality = < graph | digraph >
