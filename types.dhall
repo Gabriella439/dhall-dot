@@ -11,7 +11,7 @@ let Port =
       | Both : { id : ID, compassPoint : CompassPoint }
       >
 
-let Attribute = { key : ID, value : ID }
+let Attribute = { mapKey : ID, mapValue : ID }
 
 let AttributeType = < edge | graph | node >
 

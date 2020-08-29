@@ -42,7 +42,7 @@ let port =
           }
           p
 
-let attribute = λ(a : types.Attribute) → "${id a.key} = ${id a.value}"
+let attribute = λ(a : types.Attribute) → "${id a.mapKey} = ${id a.mapValue}"
 
 let attributeList =
       λ(`as` : List types.Attribute) →
@@ -177,7 +177,7 @@ let maximalExample =
                     { id = "Node #0"
                     , port = Some (types.Port.CompassPoint types.CompassPoint.n)
                     }
-                  , attributes = [ { key = "color", value = "red" } ]
+                  , attributes = toMap { color = "red" }
                   }
               , types.statement.node
                   { nodeID = { id = "Node #1", port = None types.Port }
@@ -214,7 +214,7 @@ let maximalExample =
                             }
                         )
                     ]
-                  , attributes = [ { key = "label", value = "Label #0" } ]
+                  , attributes = toMap { label = "Label #0" }
                   }
               , types.statement.subgraph
                   ( types.subgraph
