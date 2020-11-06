@@ -50,7 +50,8 @@ let maximalExample =
                         { id = "Node #1", port = None dhall-dot.Port }
                     , dhall-dot.vertex.subgraph
                         ( dhall-dot.subgraph
-                            { id = Some "Subgraph #0"
+                            { id = Some "cluster_0"
+                            , attributes = toMap { style = "filled" }
                             , statements =
                               [ dhall-dot.statement.node
                                   { nodeID =
@@ -75,6 +76,7 @@ let maximalExample =
               , dhall-dot.statement.subgraph
                   ( dhall-dot.subgraph
                       { id = Some "Subgraph #1"
+                      , attributes = [] : List dhall-dot.Attribute
                       , statements =
                         [ dhall-dot.statement.node
                             { nodeID =
@@ -96,7 +98,7 @@ let maximalExample =
               ]
             }
         ≡ ''
-          strict digraph "A" { "Node #0":n [ "color" = "red" ]; "Node #1"; "Node #0":n -> "Node #1" -> subgraph "Subgraph #0" { "Subgraph #0 - Node #0"; "Subgraph #0 - Node #1"; } [ "label" = "Label #0" ]; subgraph "Subgraph #1" { "Subgraph #1 - Node #0"; "Subgraph #1 - Node #1"; }; }
+          strict digraph "A" { "Node #0":n [ "color" = "red" ]; "Node #1"; "Node #0":n -> "Node #1" -> subgraph "cluster_0" { "style" = "filled"; "Subgraph #0 - Node #0"; "Subgraph #0 - Node #1"; } [ "label" = "Label #0" ]; subgraph "Subgraph #1" { "Subgraph #1 - Node #0"; "Subgraph #1 - Node #1"; }; }
           ''
 
 in  dhall-dot
