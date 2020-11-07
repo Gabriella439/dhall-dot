@@ -40,7 +40,10 @@ let Statement =
               , subgraph : types.SubGraph → types.Vertex
               }
           , subgraph :
-              { id : Optional Text, statements : List types.Statement } →
+              { id : Optional Text
+              , attributes : List Attribute
+              , statements : List types.Statement
+              } →
                 types.SubGraph
           }
         ) →
@@ -69,7 +72,10 @@ let Vertex =
               , subgraph : types.SubGraph → types.Vertex
               }
           , subgraph :
-              { id : Optional Text, statements : List types.Statement } →
+              { id : Optional Text
+              , attributes : List Attribute
+              , statements : List types.Statement
+              } →
                 types.SubGraph
           }
         ) →
@@ -98,7 +104,10 @@ let SubGraph =
               , subgraph : types.SubGraph → types.Vertex
               }
           , subgraph :
-              { id : Optional Text, statements : List types.Statement } →
+              { id : Optional Text
+              , attributes : List Attribute
+              , statements : List types.Statement
+              } →
                 types.SubGraph
           }
         ) →
@@ -137,7 +146,10 @@ let statement
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -166,7 +178,10 @@ let statement
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -201,7 +216,10 @@ let statement
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -230,7 +248,10 @@ let statement
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -259,7 +280,10 @@ let statement
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -292,7 +316,10 @@ let vertex
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -321,7 +348,10 @@ let vertex
                   , subgraph : types.SubGraph → types.Vertex
                   }
               , subgraph :
-                  { id : Optional Text, statements : List types.Statement } →
+                  { id : Optional Text
+                  , attributes : List Attribute
+                  , statements : List types.Statement
+                  } →
                     types.SubGraph
               }
             ) →
@@ -329,8 +359,17 @@ let vertex
       }
 
 let subgraph
-    : { id : Optional ID, statements : List Statement } → SubGraph
-    = λ(x : { id : Optional ID, statements : List Statement }) →
+    : { id : Optional ID
+      , attributes : List Attribute
+      , statements : List Statement
+      } →
+        SubGraph
+    = λ ( x
+        : { id : Optional ID
+          , attributes : List Attribute
+          , statements : List Statement
+          }
+        ) →
       λ(types : { Statement : Type, Vertex : Type, SubGraph : Type }) →
       λ ( constructors
         : { statement :
@@ -353,7 +392,10 @@ let subgraph
               , subgraph : types.SubGraph → types.Vertex
               }
           , subgraph :
-              { id : Optional Text, statements : List types.Statement } →
+              { id : Optional Text
+              , attributes : List Attribute
+              , statements : List types.Statement
+              } →
                 types.SubGraph
           }
         ) →
@@ -363,6 +405,7 @@ let subgraph
               let adapt = λ(s : Statement) → s types constructors
 
               in  List/map Statement types.Statement adapt x.statements
+          , attributes = x.attributes
           }
 
 let Directionality = < graph | digraph >

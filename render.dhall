@@ -51,6 +51,10 @@ let attributeList =
       λ(`as` : List types.Attribute) →
         "[ ${Text/concatMapSep ", " types.Attribute attribute `as`} ]"
 
+let graphAttributeList =
+      λ(`as` : List types.Attribute) →
+        "${Text/concatMapSep "; " types.Attribute attribute `as`};"
+
 let attributeType =
       λ(t : types.AttributeType) →
         merge { graph = "graph", node = "node", edge = "edge" } t
@@ -110,7 +114,12 @@ let statement =
             }
           , vertex = { nodeID, subgraph = λ(x : Text) → x }
           , subgraph =
-              λ(x : { id : Optional Text, statements : List Text }) →
+              λ ( x
+                : { id : Optional Text
+                  , attributes : List types.Attribute
+                  , statements : List Text
+                  }
+                ) →
                 let renderedID =
                       merge
                         { None = [] : List Text
@@ -118,10 +127,16 @@ let statement =
                         }
                         x.id
 
+                let renderedAttributeList =
+                      if    List/null types.Attribute x.attributes
+                      then  [] : List Text
+                      else  [ graphAttributeList x.attributes ]
+
                 in  Text/concatSep
                       " "
                       (   renderedID
                         # [ "{" ]
+                        # renderedAttributeList
                         # List/map
                             Text
                             Text
